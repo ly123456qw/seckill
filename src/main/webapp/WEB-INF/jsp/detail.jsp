@@ -76,6 +76,7 @@
 <script type="text/javascript">
     $(function () {
         // EL传参
+        console.log(seckill);
         seckill.detail.init({
             seckillId: ${seckill.seckillId},
             startTime: ${seckill.startTime.time}, // 毫秒
