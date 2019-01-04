@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.seckill.dao.StudentInfoDao">
+    
+    <resultMap id="BaseResultMap" type="org.seckill.entity.StudentInfoEntity">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="no" property="no" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base">
+        id, no, name, sex
+    </sql>
+
+    <select id="queryById" resultMap="BaseResultMap" >
+        SELECT
+        <include refid="Base" />
+        FROM sc_student_info
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertStudentInfo" parameterType="org.seckill.entity.StudentInfoEntity">
+        INSERT INTO sc_student_info (no, name, sex)
+        VALUE (
+        #{no, jdbcType = VARCHAR},
+        #{name, jdbcType = VARCHAR},
+        #{sex, jdbcType = VARCHAR})
+    </insert>
+
+    <update id="updateStudent" parameterType="org.seckill.entity.StudentInfoEntity">
+        update sc_student_info
+        <set>
+            <if test="no != null">
+                no = #{no, jdbcType = VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name, jdbcType = VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex, jdbcType = VARCHAR}
+            </if>
+        </set>
+        where id = #{id, jdbcType = INTEGER}
+    </update>
+
+    <delete id="deleteStudent">
+        delete
+        from sc_student_info
+        where id = #{id,jdbcType = INTEGER}
+    </delete>
+
+</mapper>

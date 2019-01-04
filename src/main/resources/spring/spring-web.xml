@@ -31,6 +31,6 @@
     </bean>
 
     <!-- 4、扫描 web 相关的 bean -->
-    <context:component-scan base-package="org.seckill.web"/>
+    <context:component-scan base-package="org.seckill.controller"/>
 
 </beans>
