@@ -2,6 +2,8 @@ package org.seckill.dao;
 
 import org.seckill.entity.StudentInfoEntity;
 
+import java.util.List;
+
 /**
  * Student Info DAO -> Mapper
  */
@@ -20,6 +22,12 @@ public interface StudentInfoDao {
      * @return
      */
     StudentInfoEntity queryById(Integer id);
+
+    /**
+     * query All student info
+     * @return
+     */
+    List<StudentInfoEntity> queryAll();
 
     /**
      * update studentInfo

@@ -21,11 +21,11 @@ public class StudentInfoDaoTest {
 
     @Test
     public void insertStudentInfo() {
-        StudentInfoEntity studentInfoEntity = studentInfoDao.queryById(2);
+        StudentInfoEntity studentInfoEntity = studentInfoDao.queryById(1);
         if (studentInfoEntity.getId() == null) {
-            studentInfoEntity.setName("Flash");
-            studentInfoEntity.setNo("201507010326");
-            studentInfoEntity.setSex("男");
+            studentInfoEntity.setName("Terminal");
+            studentInfoEntity.setNo("2435454111");
+            studentInfoEntity.setSex("M");
             studentInfoDao.insertStudentInfo(studentInfoEntity);
         } else {
             studentInfoEntity.setName("ZOOM4");
@@ -45,6 +45,11 @@ public class StudentInfoDaoTest {
         StudentInfoEntity studentInfoEntity = studentInfoDao.queryById(2);
         System.out.println(studentInfoEntity.getId());
         studentInfoDao.deleteStudent(studentInfoEntity.getId());
+    }
+
+    @Test
+    public void queryAll() {
+        System.out.println(studentInfoDao.queryAll());
     }
 
 }
