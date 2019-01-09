@@ -1,6 +1,7 @@
 package org.seckill.controller;
 
 import com.sun.org.apache.xerces.internal.impl.dv.xs.MonthDayDV;
+import org.seckill.dao.StudentInfoDao;
 import org.seckill.entity.StudentInfoEntity;
 import org.seckill.service.StudentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class StudentInfoController {
     /**
      * save sth info
      * @param request
-     * @param studentInfoEntity
+     * @param
      * @return
      */
     @RequestMapping(value = "save", method = RequestMethod.POST)
@@ -58,7 +59,6 @@ public class StudentInfoController {
         String name = request.getParameter("name");
         String sex = request.getParameter("sex");
         String id = request.getParameter("id");
-
         studentInfoEntity.setNo(no);
         studentInfoEntity.setName(name);
         studentInfoEntity.setSex(sex);
@@ -90,6 +90,20 @@ public class StudentInfoController {
             map.put("sex",sex);
             map.put("id", id);
             return "edit";
+        }
+    }
+
+    @RequestMapping(value = "/del")
+    @ResponseBody
+    public String delete(HttpServletRequest request) {
+
+        String id = request.getParameter("id");
+        request.getContextPath();
+        if(id == null) {
+            return "0";
+        } else {
+            studentInfoService.deleteStudent(Integer.valueOf(id));
+            return "1";
         }
     }
 

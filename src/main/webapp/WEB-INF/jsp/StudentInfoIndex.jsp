@@ -49,6 +49,8 @@
                         <td>
                             <a class="btn btn-success" onclick="edit('${sk.id}');"
                                data-toggle="popover">修改</a>
+                            <a class="btn btn-danger" onclick="del('${sk.id}');"
+                               data-toggle="popover">删除</a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -66,6 +68,24 @@
     }
     function edit(id) {
         self.location = "./edit?id=" + id;
+    }
+    function del(id) {
+        $.ajax({
+            url: "del.action",
+            dataType: "json",
+            data: {
+                id: id
+            },
+            type: "POST",
+            success: function (resp) {
+                if (resp === 1) {
+                    alert("删除成功");
+                    self.location = "./list";
+                } else {
+                    alert("删除失败 id：" + id);
+                }
+            }
+        })
     }
 </script>
 

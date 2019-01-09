@@ -37,6 +37,6 @@ public interface StudentInfoService {
      * @param id
      * @return
      */
-    Integer deleteStudentInfo(int id);
+    Integer deleteStudent(Integer id);
 
 }

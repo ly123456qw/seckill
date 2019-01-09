@@ -14,6 +14,7 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     @Autowired
     private StudentInfoDao studentInfoDao;
 
+
     @Override
     public StudentInfoEntity queryByNO(Integer id) {
 
@@ -37,7 +38,9 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     }
 
     @Override
-    public Integer deleteStudentInfo(int id) {
-        return null;
+    public Integer deleteStudent(Integer id) {
+        return studentInfoDao.deleteStudent(id);
     }
+
+
 }
