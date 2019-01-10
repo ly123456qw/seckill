@@ -29,7 +29,7 @@ public interface StudentInfoDao {
      */
     List<StudentInfoEntity> queryAll();
 
-    /**
+    /**，
      * update studentInfo
      * @param studentInfoEntity
      * @return

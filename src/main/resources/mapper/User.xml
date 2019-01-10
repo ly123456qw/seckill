@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.seckill.dao.UserDao">
+
+    <resultMap id="BaseResultMap" type="org.seckill.entity.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base">
+        id,email,username,password,status
+    </sql>
+
+    <select id="selectUser" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base"/>
+        FROM user
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectAllUser" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base"/>
+        FROM user
+        WHERE 1 = 1
+    </select>
+
+    <select id="selectUserByEmail" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base"/>
+        FROM user
+        WHERE email = #{email}
+    </select>
+
+    <insert id="addUser" parameterType="org.seckill.entity.User">
+        INSERT INTO user (email, password, username,role,status)
+        VALUE (
+        #{email, jdbcType = VARCHAR},
+        #{password, jdbcType = VARCHAR},
+        #{username, jdbcType = VARCHAR},
+        #{role,jdbcType = VARCHAR},
+        #{status,jdbcType = INTEGER}
+         )
+    </insert>
+    <delete id="romoveUser">
+        delete
+        from user
+        where id = #{id, jdbcType = INTEGER}
+    </delete>
+    <update id="modifyUser" parameterType="org.seckill.entity.User">
+        update user
+        <set>
+            <if test="email != null and email != '' ">
+                email = #{email, jdbcType = VARCHAR},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password, jdbcType = VARCHAR},
+            </if>
+            <if test="username != null and username != ''">
+                username = #{username, jdbcType = VARCHAR},
+            </if>
+            <if test="role != null and role != ''">
+                role = #{role, jdbcType = VARCHAR},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status, jdbcType = INTEGER}
+            </if>
+        </set>
+        WHERE id = #{id, jdbcType = INTEGER}
+    </update>
+
+</mapper>
