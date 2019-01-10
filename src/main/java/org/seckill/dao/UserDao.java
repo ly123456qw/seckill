@@ -29,7 +29,7 @@ public interface UserDao {
      * 增加用户
      * @param user
      */
-    void addUser(User user);
+    Integer addUser(User user);
 
     /**
      * 删除用户
