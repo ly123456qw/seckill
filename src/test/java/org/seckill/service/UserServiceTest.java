@@ -33,11 +33,12 @@ public class UserServiceTest {
     @Test
     public void addUser() {
         User user = new User();
-        user.setPassword("32987r90q32yh");
+        user.setPassword("123");
         user.setUsername("位于");
         user.setRole("Student");
-        user.setStatus(0);
-        user.setEmail("sdahfdasohfsad!@sadhfoadsf.com");
+        user.setStatus(1);
+        user.setEmail("123@qq.com");
+        user.setNumber("123");
         userService.addUser(user);
     }
 
@@ -53,5 +54,11 @@ public class UserServiceTest {
             getUser.setEmail("test@gmail.com");
             userService.modifyUser(getUser);
         }
+    }
+
+    @Test
+    public void queryNumber() {
+        User queryById = userService.selectUser(7);
+        System.out.println(userService.queryNumber(queryById.getNumber()));
     }
 }

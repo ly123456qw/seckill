@@ -44,4 +44,9 @@ public interface UserDao {
      * @return
      */
     Integer modifyUser(User user);
+
+    /**
+     * 根据学号拿到登陆者的所有信息
+     */
+    User queryNumber(String number);
 }

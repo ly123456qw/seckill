@@ -73,4 +73,9 @@ public class UserServiceImpl implements UserService {
     public Integer modifyUser(User user) {
         return userDao.modifyUser(user);
     }
+
+    @Override
+    public User queryNumber(String number) {
+        return userDao.queryNumber(number);
+    }
 }

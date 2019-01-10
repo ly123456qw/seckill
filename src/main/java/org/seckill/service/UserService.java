@@ -47,4 +47,11 @@ public interface UserService {
      */
      Integer modifyUser(User user);
 
+    /**
+     * query by number
+     * @param number
+     * @return
+     */
+     User queryNumber(String number);
+
 }

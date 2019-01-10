@@ -7,6 +7,16 @@ public class User {
     private String username;//用户名称
     private String role;//用户身份
     private Integer status;//用户状态
+    // 学号
+    private String number;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
     public Integer getId() {
         return id;
@@ -64,6 +74,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
                 ", role='" + role + '\'' +
+                ", number='" + number + '\'' +
                 ", status=" + status +
                 '}';
     }

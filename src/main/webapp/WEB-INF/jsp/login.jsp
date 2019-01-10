@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>修改测试</title>
+    <title>登录</title>
     <%@include file="common/head.jsp" %>
 
 </head>
@@ -18,8 +18,8 @@
 <div class="panel panel-default box" >
     <form id="addMessage">
         <div class="form-group">
-            <label for="user">用户名</label>
-            <input type="user" class="form-control" id="user" name="user" placeholder="请输入用户名" >
+            <label for="number">学号</label>
+            <input type="text" class="form-control" id="number" name="number" placeholder="请输入学号" >
         </div>
         <div class="form-group">
             <label for="password">密码</label>
@@ -35,18 +35,18 @@
         var all = $('#addMessage').serialize();
         console.log(all);
         $.ajax({
-            url: "user.action",
+            url: "enterUser.action",
             type: "POST",
             data : all,
             dataType : "json",
             success : function (data) {
                 if (data === 1) {
                     alert("登录成功");
-                    self.location = "./list";
+                    self.location = "./studentSuccessInfo";
                 } else if (data === 0) {
-                    alert("没有修改任何的数据");
+                    alert("学号或者密码输入错误");
                 } else {
-                    alert("保存失败，ID：" + "data: " + data);
+                    alert("请输入学号或者密码，ID：" + "data: " + data);
                 }
             }
         })
@@ -54,4 +54,10 @@
 </script>
 
 </body>
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </html>

@@ -40,11 +40,12 @@ public class UserDaoTest {
     @Test
     public void addUser() {
         User user = new User();
-        user.setUsername("Tina");
-        user.setEmail("cnhonker@qq.com");
+        user.setUsername("Tiddna");
+        user.setEmail("cnher@qq.com");
         user.setStatus(0);
         user.setRole("Teacher");
         user.setPassword("Join Chengdu");
+        user.setNumber("32857894sda");
         userDao.addUser(user);
     }
 
@@ -66,6 +67,12 @@ public class UserDaoTest {
             getMessage.setUsername("柳艳");
             userDao.modifyUser(getMessage);
         }
+    }
+
+    @Test
+    public void queryNumber() {
+        User id = userDao.selectUser(7);
+        System.out.println(userDao.queryNumber(id.getNumber()));
     }
 
 }
