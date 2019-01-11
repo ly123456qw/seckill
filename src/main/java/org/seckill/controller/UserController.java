@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping(value = "/")
@@ -21,6 +24,7 @@ public class UserController {
 
     /**
      * 登录
+     *
      * @param modelAndView
      * @return
      */
@@ -31,6 +35,7 @@ public class UserController {
 
     /**
      * 校验用户
+     *
      * @param request
      * @param session
      * @return
@@ -40,8 +45,8 @@ public class UserController {
     public String enterUser(HttpServletRequest request, HttpSession session) {
         String number = request.getParameter("number");
         String password = request.getParameter("password");
-        if (null != number && ! "".equals(number) &&
-                null != password &&  !"".equals(password)) {
+        if (null != number && !"".equals(number) &&
+                null != password && !"".equals(password)) {
             User user = userService.queryNumber(number);
             if (null != user &&
                     password.equals(user.getPassword()) &&
@@ -64,6 +69,7 @@ public class UserController {
 
     /**
      * 学生登录成功
+     *
      * @param request
      * @param model
      * @return
@@ -73,5 +79,57 @@ public class UserController {
         String usersession = (String) request.getSession().getAttribute("name");
         model.addAttribute("name", usersession);
         return "studentSuccessInfo";
+    }
+
+    /**
+     * Forword to registerInfo
+     *
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/register")
+    public String registerInfo(HttpServletRequest request, Model model) {
+        return "register";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/registerInfoSuccess")
+    public String registerInfoSuccess(HttpServletRequest request, Model model) {
+        User user = new User();
+        String number = request.getParameter("number");
+        String userName = request.getParameter("username");
+        String password = request.getParameter("password");
+        String passwordAgain = request.getParameter("pwd");
+        String email = request.getParameter("email");
+        String role = request.getParameter("role");
+
+//        Matcher decideNumber = Pattern.compile(userName).matcher(User.DECIDE_USER_NAME);
+        if (number.length() == 8 && userName != null && ! userName.equals("") &&
+                password != null && ! password.equals("") &&
+                passwordAgain != null && ! passwordAgain.equals("") &&
+                email != null && ! email.equals("") &&
+                role != null && ! role.equals("")) {
+
+            if (! password.equals(passwordAgain)) {
+                return "-2";
+            }
+
+            user.setNumber(number);
+            user.setEmail(email);
+            user.setStatus(1);
+            user.setRole("学生");
+            user.setUsername(userName);
+            user.setPassword(password);
+            try {
+                userService.addUser(user);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return "1";
+        } else {
+            return "-3";
+        }
     }
 }

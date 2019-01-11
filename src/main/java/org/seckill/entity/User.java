@@ -1,6 +1,10 @@
 package org.seckill.entity;
 
 public class User {
+
+    // 正则表达式判断
+    public static final String DECIDE_USER_NAME = "//^[a-zA-Z\\u4E00-\\u9FA5]+$/\n";
+
     private Integer id; //用户id
     private String email; //用户邮箱
     private String password;//用户密码
