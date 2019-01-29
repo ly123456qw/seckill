@@ -21,35 +21,51 @@ public class StudentInfoDaoTest {
 
     @Test
     public void insertStudentInfo() {
-        StudentInfoEntity studentInfoEntity = studentInfoDao.queryById(1);
-        if (studentInfoEntity.getId() == null) {
-            studentInfoEntity.setName("Terminal");
-            studentInfoEntity.setNo("2435454111");
-            studentInfoEntity.setSex("M");
-            studentInfoDao.insertStudentInfo(studentInfoEntity);
+        String id = studentInfoDao.queryById(5);
+        StudentInfoEntity studentInfoEntity = new StudentInfoEntity();
+        if (null != id && ! "".equals(id)) {
+            StudentInfoEntity byId = studentInfoDao.findById(Integer.valueOf(id));
+
+            byId.setStudentName("ZOOM4");
+            try {
+                studentInfoDao.updateStudent(byId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
-            studentInfoEntity.setName("ZOOM4");
-            studentInfoDao.updateStudent(studentInfoEntity);
+            studentInfoEntity.setStudentName("李四");
+            studentInfoEntity.setStudentAcdemic("数学学院");
+            studentInfoEntity.setStudentMajor("数学");
+            studentInfoEntity.setStudentNum("123456");
+            studentInfoEntity.setStudentPhone("18678552661");
+            studentInfoDao.insertStudentInfo(studentInfoEntity);
         }
 
     }
 
     @Test
-    public void queryById() {
-        StudentInfoEntity studentInfoEntity = studentInfoDao.queryById(1);
-        System.out.println(studentInfoEntity.getName());
+    public  void  queryByNum () {
+        StudentInfoEntity studentInfoEntity = studentInfoDao.queryByNum("1506090540017");
+        studentInfoEntity.getStudentId();
+        studentInfoEntity.getStudentAcdemic();
+        studentInfoEntity.getStudentName();
     }
 
-    @Test
-    public void delete() {
-        StudentInfoEntity studentInfoEntity = studentInfoDao.queryById(2);
-        System.out.println(studentInfoEntity.getId());
-        studentInfoDao.deleteStudent(studentInfoEntity.getId());
-    }
+//    @Test
+//    public void queryById() {
+//        StudentInfoEntity studentInfoEntity = studentInfoDao.queryById(1);
+//        System.out.println(studentInfoEntity.getStudentNum());
+//    }
+//
+//    @Test
+//    public void delete() {
+//        StudentInfoEntity studentInfoEntity = studentInfoDao.queryById(2);
+//        System.out.println(studentInfoEntity.getStudentName());
+//        studentInfoDao.deleteStudent(studentInfoEntity.getStudentId());
+//    }
 
     @Test
     public void queryAll() {
         System.out.println(studentInfoDao.queryAll());
     }
-
 }

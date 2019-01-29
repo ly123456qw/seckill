@@ -1,57 +1,21 @@
 package org.seckill.service;
 
-import org.seckill.entity.User;
+import org.seckill.entity.UserEntity;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 public interface UserService {
-
     /**
-     * 通过id查询
-     * @param userId
+     * 通过学号查询所有信息
+     * @param num
      * @return
      */
-     User selectUser(Integer userId);
+    UserEntity queryByNum(String num);
 
     /**
-     * 查询所用用户
+     * 插入学生用户的信息
+     * @param userEntity
      * @return
      */
-     List<User> selectAllUser();
-
-    /**
-     * 通过用户邮箱查询
-     * @param email
-     * @return
-     */
-     User selectUserByEmail(String email);
-
-    /**
-     * 添加用户
-     * @param user
-     * @return
-     */
-     Integer addUser(User user);
-
-    /**
-     * delete user
-     * @param userId
-     * @return
-     */
-     Integer removeUser(Integer userId);
-
-    /**
-     * update user
-     * @param user
-     * @return
-     */
-     Integer modifyUser(User user);
-
-    /**
-     * query by number
-     * @param number
-     * @return
-     */
-     User queryNumber(String number);
-
+    Integer insertUser(UserEntity userEntity);
 }

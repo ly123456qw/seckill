@@ -1,52 +1,31 @@
 package org.seckill.dao;
 
-import org.seckill.entity.User;
+
+import org.seckill.entity.UserEntity;
 
 import java.util.List;
 
 public interface UserDao {
+
+
+
     /**
-     * 通过id进行查询
-     * @param id
+     *  通过用户学号查询所有信息
+     * @param number
      * @return
      */
-    User selectUser(Integer id);
+    UserEntity queryByNum(String number);
 
     /**
-     * 查询所有用户
+     * 添加学生用户信息
+     * @param userEntity
      * @return
      */
-    List<User> selectAllUser();
+    Integer insertUser(UserEntity userEntity);
 
     /**
-     * 通过 Email 查询用户相关
-     * @param email
+     * 查询所有用户信息
      * @return
      */
-    User selectUserByEmail(String email);
-
-    /**
-     * 增加用户
-     * @param user
-     */
-    Integer addUser(User user);
-
-    /**
-     * 删除用户
-     * @param id
-     * @return
-     */
-    Integer romoveUser(Integer id); // FIXME DONT DELETE
-
-    /**
-     * 更新用户相关信息
-     * @param user
-     * @return
-     */
-    Integer modifyUser(User user);
-
-    /**
-     * 根据学号拿到登陆者的所有信息
-     */
-    User queryNumber(String number);
+    List<UserEntity> queryAllUser();
 }

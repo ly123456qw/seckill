@@ -1,6 +1,8 @@
 package org.seckill.controller;
 
-import org.seckill.entity.User;
+import org.seckill.entity.StudentInfoEntity;
+import org.seckill.entity.UserEntity;
+import org.seckill.service.StudentInfoService;
 import org.seckill.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,18 +11,82 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 @Controller
 @RequestMapping(value = "/")
 public class UserController {
 
+    /**
+     * 用户信息
+     */
     @Autowired
     private UserService userService;
+
+    /**
+     * 学生信息
+     */
+    @Autowired
+    private StudentInfoService studentInfoService;
+
+    /**
+     * 注册
+     *
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/register")
+    public String registerInfo(HttpServletRequest request, Model model) {
+        return "register";
+    }
+
+    /**
+     * 注册 - 将注册的信息写入数据库
+     *
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/registerInfoSuccess")
+    public String registerInfoSuccess(HttpServletRequest request) {
+        UserEntity userEntity = new UserEntity();
+        String number = request.getParameter("number");
+        String password = request.getParameter("password");
+        String pwd = request.getParameter("pwd");
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String academic = request.getParameter("academic");
+        String major = request.getParameter("major");
+
+
+       // 判断输入的学号和密码不为空
+        if (number != null && !"".equals(number) &&
+                password != null && !"".equals(password) &&
+                pwd != null && !"".equals(pwd)) {
+
+            StudentInfoEntity studentInfoEntity = studentInfoService.queryByNum(number);
+
+            // 判断两个密码是否相等和学号是否在学生表中存在
+            if (number.equals(studentInfoEntity.getStudentNum())&& password.equals(pwd)) {
+                userEntity.setUserNumber(number);
+                userEntity.setUserPassword(password);
+                userEntity.setUserIntro(email);
+                try {
+                    userService.insertUser(userEntity);
+                    return "1";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        return "-1";
+
+    }
+
 
     /**
      * 登录
@@ -30,11 +96,13 @@ public class UserController {
      */
     @RequestMapping(value = "/login")
     public String login(ModelAndView modelAndView) {
+        // 这里留空用作后面做安全判断，预防劫持
         return "login";
     }
 
+
     /**
-     * 校验用户
+     * 登录验证
      *
      * @param request
      * @param session
@@ -47,15 +115,11 @@ public class UserController {
         String password = request.getParameter("password");
         if (null != number && !"".equals(number) &&
                 null != password && !"".equals(password)) {
-            User user = userService.queryNumber(number);
-            if (null != user &&
-                    password.equals(user.getPassword()) &&
-                    (number != null && number.equals(user.getNumber()))
-                    && user.getStatus() == 1) {
-                session.setAttribute("name", user.getUsername());
-                session.setAttribute("number", user.getNumber());
-                session.setAttribute("email", user.getEmail());
-
+            UserEntity userEntity = userService.queryByNum(number);
+            if (null != userEntity && password.equals(userEntity.getUserPassword()) &&
+                    (number != null && number.equals(userEntity.getUserNumber()))) {
+                session.setAttribute("number", userEntity.getUserNumber());
+                session.setAttribute("email", userEntity.getUserEmail());
                 return "1";
             } else {
                 // 0 代表 学号或者密码输入错误
@@ -67,8 +131,9 @@ public class UserController {
         }
     }
 
+
     /**
-     * 学生登录成功
+     * 登录成功跳转的页面
      *
      * @param request
      * @param model
@@ -78,58 +143,7 @@ public class UserController {
     public String studentSuccessInfo(HttpServletRequest request, Model model) {
         String usersession = (String) request.getSession().getAttribute("name");
         model.addAttribute("name", usersession);
-        return "studentSuccessInfo";
+        return "director";
     }
 
-    /**
-     * Forword to registerInfo
-     *
-     * @param request
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/register")
-    public String registerInfo(HttpServletRequest request, Model model) {
-        return "register";
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/registerInfoSuccess")
-    public String registerInfoSuccess(HttpServletRequest request, Model model) {
-        User user = new User();
-        String number = request.getParameter("number");
-        String userName = request.getParameter("username");
-        String password = request.getParameter("password");
-        String passwordAgain = request.getParameter("pwd");
-        String email = request.getParameter("email");
-        String role = request.getParameter("role");
-
-//        Matcher decideNumber = Pattern.compile(userName).matcher(User.DECIDE_USER_NAME);
-        if (number.length() == 8 && userName != null && ! userName.equals("") &&
-                password != null && ! password.equals("") &&
-                passwordAgain != null && ! passwordAgain.equals("") &&
-                email != null && ! email.equals("") &&
-                role != null && ! role.equals("")) {
-
-            if (! password.equals(passwordAgain)) {
-                return "-2";
-            }
-
-            user.setNumber(number);
-            user.setEmail(email);
-            user.setStatus(1);
-            user.setRole("学生");
-            user.setUsername(userName);
-            user.setPassword(password);
-            try {
-                userService.addUser(user);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return "1";
-        } else {
-            return "-3";
-        }
-    }
 }

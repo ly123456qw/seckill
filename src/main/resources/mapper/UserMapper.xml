@@ -4,49 +4,72 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.seckill.dao.UserDao">
 
-    <resultMap id="BaseResultMap" type="org.seckill.entity.User">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="email" property="email" jdbcType="VARCHAR"/>
-        <result column="username" property="username" jdbcType="VARCHAR"/>
-        <result column="password" property="password" jdbcType="VARCHAR"/>
-        <result column="status" property="status" jdbcType="INTEGER"/>
-        <result column="number" property="number" jdbcType="VARCHAR" />
+    <resultMap id="BaseResultMap" type="org.seckill.entity.UserEntity">
+        <id column="user_Id" property="userID" jdbcType="INTEGER"/>
+        <result column="fk_student_Id" property="studentId" jdbcType="INTEGER"/>
+        <result column="user_Num" property="userNumber" jdbcType="VARCHAR"/>
+        <result column="user_Password" property="userPassword" jdbcType="VARCHAR"/>
+        <result column="user_Email" property="userEmail" jdbcType="VARCHAR"/>
+        <result column="user_Status" property="userStatus" jdbcType="INTEGER"/>
+        <result column="user_Introduce" property="userIntro" jdbcType="VARCHAR"/>
     </resultMap>
 
+
     <sql id="Base">
-        id,email,username,password,status, number
+        user_id,user_Num,user_Password,user_Email,user_Status,user_Introduce
     </sql>
-
-    <select id="selectUser" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base"/>
-        FROM user
-        WHERE id = #{id}
-    </select>
-
-    <select id="selectAllUser" resultMap="BaseResultMap">
+    <select id="queryAllUser" resultMap="BaseResultMap">
         SELECT
         <include refid="Base"/>
         FROM user
         WHERE 1 = 1
     </select>
 
-    <select id="selectUserByEmail" resultMap="BaseResultMap">
+    <select id="queryByNum" resultMap="BaseResultMap">
         SELECT
         <include refid="Base"/>
         FROM user
+        WHERE user_Num = #{number}
+    </select>
+    <!--parameterType为输入参数-->
+    <insert id="insertUser" parameterType="org.seckill.entity.UserEntity">
+       INSERT INTO user (user_Num,user_Password,user_Email,user_Introduce)
+       VALUE (
+         <if test="userNumber != null" >
+        #{userNumber, jdbcType = VARCHAR},
+         </if>
+        <if test="userPassword != null">
+        #{userPassword, jdbcType = VARCHAR},
+        </if>
+        #{userEmail,jdbcType = VARCHAR},
+        #{userIntro,jdbcType = VARCHAR}
+       )
+    </insert>
+
+    <!--
+    <select id="selectAllUser" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base"/>
+        FROM ly_user
+        WHERE 1 = 1
+    </select>
+
+    <select id="selectUserByEmail" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base"/>
+        FROM ly_user
         WHERE email = #{email}
     </select>
 
     <select id="queryNumber" resultMap="BaseResultMap">
         SELECT
         <include refid="Base"/>
-        FROM user
+        FROM ly_user
         WHERE number = #{number, jdbcType = VARCHAR}
     </select>
 
     <insert id="addUser" parameterType="org.seckill.entity.User">
-        INSERT INTO user (email, password, username,role,status, number)
+        INSERT INTO ly_user (email, user_password, user_name,role,status, number)
         VALUE (
         #{email, jdbcType = VARCHAR},
         #{password, jdbcType = VARCHAR},
@@ -58,20 +81,20 @@
     </insert>
     <delete id="romoveUser">
         delete
-        from user
+        from ly_user
         where id = #{id, jdbcType = INTEGER}
     </delete>
     <update id="modifyUser" parameterType="org.seckill.entity.User">
-        update user
+        update ly_user
         <set>
             <if test="email != null and email != '' ">
                 email = #{email, jdbcType = VARCHAR},
             </if>
             <if test="password != null and password != ''">
-                password = #{password, jdbcType = VARCHAR},
+                user_password = #{password, jdbcType = VARCHAR},
             </if>
             <if test="username != null and username != ''">
-                username = #{username, jdbcType = VARCHAR},
+                user_name = #{username, jdbcType = VARCHAR},
             </if>
             <if test="role != null and role != ''">
                 role = #{role, jdbcType = VARCHAR},
@@ -82,5 +105,5 @@
         </set>
         WHERE id = #{id, jdbcType = INTEGER}
     </update>
-
+-->
 </mapper>

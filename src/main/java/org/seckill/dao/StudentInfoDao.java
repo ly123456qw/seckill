@@ -17,11 +17,26 @@ public interface StudentInfoDao {
     Integer insertStudentInfo(StudentInfoEntity studentInfoEntity);
 
     /**
-     * query by student id or no
+     * query by student num
+     * @param num
+     * @return
+     */
+    StudentInfoEntity queryByNum(String num);
+
+    /**
+     * 查找id
      * @param id
      * @return
      */
-    StudentInfoEntity queryById(Integer id);
+
+    String queryById(Integer id);
+
+    /**
+     * 根据ID查找信息
+     * @param id
+     * @return
+     */
+    StudentInfoEntity findById(Integer id);
 
     /**
      * query All student info

@@ -14,33 +14,38 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     @Autowired
     private StudentInfoDao studentInfoDao;
 
-
     @Override
-    public StudentInfoEntity queryByNO(Integer id) {
-
-        return studentInfoDao.queryById(id);
-    }
-
-    @Override
-    public List<StudentInfoEntity> queryAll() {
-        List<StudentInfoEntity> infoEntityList = studentInfoDao.queryAll();
-        return infoEntityList; //TODO
-    }
-
-    @Override
-    public Integer inserStudentInfo(StudentInfoEntity studentInfoEntity) {
+    public Integer insertStudentInfo(StudentInfoEntity studentInfoEntity) {
         return studentInfoDao.insertStudentInfo(studentInfoEntity);
     }
 
     @Override
-    public Integer updateStudentInfo(StudentInfoEntity studentInfoEntity) {
-        return  studentInfoDao.updateStudent(studentInfoEntity);
+    public StudentInfoEntity queryByNum(String num) {
+        return studentInfoDao.queryByNum(num);
+    }
+
+    @Override
+    public String queryById(Integer id) {
+        return studentInfoDao.queryById(id);
+    }
+
+    @Override
+    public StudentInfoEntity findById(Integer id) {
+        return studentInfoDao.findById(id);
+    }
+
+    @Override
+    public List<StudentInfoEntity> queryAll() {
+        return studentInfoDao.queryAll();
+    }
+
+    @Override
+    public Integer updateStudent(StudentInfoEntity studentInfoEntity) {
+        return studentInfoDao.updateStudent(studentInfoEntity);
     }
 
     @Override
     public Integer deleteStudent(Integer id) {
         return studentInfoDao.deleteStudent(id);
     }
-
-
 }

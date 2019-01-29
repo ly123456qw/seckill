@@ -7,33 +7,49 @@ import java.util.List;
 public interface StudentInfoService {
 
     /**
-     * 通过No查询到当前数据
+     * add some student info
+     * @param studentInfoEntity
+     * @return
+     */
+    Integer insertStudentInfo(StudentInfoEntity studentInfoEntity);
+
+    /**
+     * query by student num
+     * @param num
+     * @return
+     */
+    StudentInfoEntity queryByNum(String num);
+
+    /**
+     * 查找id
      * @param id
      * @return
      */
-    StudentInfoEntity queryByNO(Integer id);
+
+    String queryById(Integer id);
 
     /**
-     * queryAll StudentInfo
+     * 根据ID查找信息
+     * @param id
+     * @return
+     */
+    StudentInfoEntity findById(Integer id);
+
+    /**
+     * query All student info
      * @return
      */
     List<StudentInfoEntity> queryAll();
 
-    /**
-     * insertStudentInfo
-     * @return
-     */
-    Integer inserStudentInfo(StudentInfoEntity studentInfoEntity);
-
-    /**
-     * updateStudentInfo
+    /**，
+     * update studentInfo
      * @param studentInfoEntity
      * @return
      */
-    Integer updateStudentInfo(StudentInfoEntity studentInfoEntity);
+    Integer updateStudent(StudentInfoEntity studentInfoEntity);
 
     /**
-     * deleteStudentInfo
+     * deleteStudent
      * @param id
      * @return
      */

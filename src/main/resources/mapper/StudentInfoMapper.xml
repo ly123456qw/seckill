@@ -5,58 +5,83 @@
 <mapper namespace="org.seckill.dao.StudentInfoDao">
     
     <resultMap id="BaseResultMap" type="org.seckill.entity.StudentInfoEntity">
-        <id column="id" property="id" jdbcType="INTEGER" />
-        <result column="no" property="no" jdbcType="VARCHAR" />
-        <result column="name" property="name" jdbcType="VARCHAR" />
-        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <id column="student_Id" property="studentId" jdbcType="INTEGER" />
+        <result column="student_Name" property="studentName" jdbcType="VARCHAR" />
+        <result column="student_Acdemic" property="studentAcdemic" jdbcType="VARCHAR" />
+        <result column="student_Major" property="studentMajor" jdbcType="VARCHAR" />
+        <result column="student_Num" property="studentNum" jdbcType="VARCHAR" />
+        <result column="student_Phone" property="studentPhone" jdbcType="VARCHAR" />
     </resultMap>
     
     <sql id="Base">
-        id, no, name, sex
+        student_Id, student_Name,student_Acdemic, student_Major,student_Num,student_Phone
     </sql>
 
-    <select id="queryById" resultMap="BaseResultMap" >
+    <select id="queryByNum" resultMap="BaseResultMap" >
         SELECT
         <include refid="Base" />
-        FROM sc_student_info
-        WHERE id = #{id}
+        FROM student
+        WHERE  student_Num= #{num}
+    </select>
+
+    <select id="queryById" resultType="String" >
+        SELECT
+        <include refid="Base" />
+        FROM student
+        WHERE student_Id= #{studentId, jdbcType = INTEGER}
+    </select>
+
+    <select id="findById" resultType="org.seckill.entity.StudentInfoEntity" >
+        SELECT
+        <include refid="Base" />
+        FROM student
+        WHERE student_Id= #{studentId, jdbcType = INTEGER}
     </select>
 
     <select id="queryAll" resultMap="BaseResultMap" >
         SELECT
         <include refid="Base" />
-        FROM sc_student_info
+        FROM student
         WHERE 1 = 1
     </select>
 
     <insert id="insertStudentInfo" parameterType="org.seckill.entity.StudentInfoEntity">
-        INSERT INTO sc_student_info (no, name, sex)
+        INSERT INTO student (student_Name,student_Acdemic, student_Major,student_Num,student_Phone)
         VALUE (
-        #{no, jdbcType = VARCHAR},
-        #{name, jdbcType = VARCHAR},
-        #{sex, jdbcType = VARCHAR})
+        #{studentName, jdbcType = VARCHAR},
+        #{studentAcdemic, jdbcType = VARCHAR},
+        #{studentMajor, jdbcType = VARCHAR},
+        #{studentNum, jdbcType = VARCHAR},
+        #{studentPhone, jdbcType = VARCHAR}
+        )
     </insert>
 
     <update id="updateStudent" parameterType="org.seckill.entity.StudentInfoEntity">
-        update sc_student_info
+        update student
         <set>
-            <if test="no != null">
-                no = #{no, jdbcType = VARCHAR},
+            <if test="studentName != null">
+                student_Name = #{studentName, jdbcType = VARCHAR},
             </if>
-            <if test="name != null">
-                name = #{name, jdbcType = VARCHAR},
+            <if test="studentAcdemic != null">
+            student_Acdemic = #{studentAcdemic, jdbcType = VARCHAR},
+           </if>
+            <if test="studentMajor != null">
+                student_Major = #{studentMajor, jdbcType = VARCHAR},
+          </if>
+            <if test="studentNum != null">
+                student_Num = #{studentNum, jdbcType = VARCHAR},
             </if>
-            <if test="sex != null">
-                sex = #{sex, jdbcType = VARCHAR}
+            <if test="studentPhone != null">
+                student_Phone = #{studentPhone, jdbcType = VARCHAR}
             </if>
         </set>
-        where id = #{id, jdbcType = INTEGER}
+        where student_Id = #{studentId, jdbcType = INTEGER}
     </update>
 
     <delete id="deleteStudent">
         delete
-        from sc_student_info
-        where id = #{id,jdbcType = INTEGER}
+        from student
+        where student_Id = #{studentId,jdbcType = INTEGER}
     </delete>
 
 </mapper>

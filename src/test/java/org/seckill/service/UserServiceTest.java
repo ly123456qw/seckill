@@ -2,63 +2,39 @@ package org.seckill.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.seckill.entity.User;
+import org.seckill.dao.UserDao;
+import org.seckill.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/*.xml"})
 public class UserServiceTest {
 
     @Autowired
-    private UserService userService;
-
+    UserDao userDao;
     @Test
-    public void selectUser() {
-        Integer id = 1;
-        System.out.println(userService.selectUser(id));
+    public void queryByNum() {
+        UserEntity userEntity = userDao.queryByNum("1606090540002");
+        /*System.out.println(userEntity.getPassword());
+        System.out.println(userEntity.getUsername());
+        System.out.println(userEntity.getAcademic());
+        System.out.println(userEntity.getUserEmail());*/
+
     }
 
     @Test
-    public void selectAllUser() {
-        System.out.println(userService.selectAllUser());
-    }
+    public void insertUser() {
+       /* UserEntity userEntity = new UserEntity();
+        userEntity.setNum("1506090540003");
+        userEntity.setUsername("王五");
+        userEntity.setPassword("123");
+        userEntity.setMajor("电子信息工程");
+        userEntity.setAcademic("物电学院");
+        userEntity.setUserEmail("123090@qq.com");
+        userDao.insertUser(userEntity);*/
 
-    @Test
-    public void selectUserByEmail() {
-        System.out.println(userService.selectUserByEmail("cnperish@gmail.com"));
-    }
-
-    @Test
-    public void addUser() {
-        User user = new User();
-        user.setPassword("123");
-        user.setUsername("位于");
-        user.setRole("Student");
-        user.setStatus(1);
-        user.setEmail("123@qq.com");
-        user.setNumber("123");
-        userService.addUser(user);
-    }
-
-    @Test
-    public void removeUser() {
-        userService.removeUser(6);
-    }
-
-    @Test
-    public void modifyUser() {
-        User getUser = userService.selectUser(5);
-        if (getUser != null) {
-            getUser.setEmail("test@gmail.com");
-            userService.modifyUser(getUser);
-        }
-    }
-
-    @Test
-    public void queryNumber() {
-        User queryById = userService.selectUser(7);
-        System.out.println(userService.queryNumber(queryById.getNumber()));
     }
 }
