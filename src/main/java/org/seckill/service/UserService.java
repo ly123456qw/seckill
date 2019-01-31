@@ -3,6 +3,8 @@ package org.seckill.service;
 import org.seckill.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 public interface UserService {
     /**
@@ -18,4 +20,10 @@ public interface UserService {
      * @return
      */
     Integer insertUser(UserEntity userEntity);
+
+    /**
+     * 查询所有
+     * @return
+     */
+    List<UserEntity> queryAll();
 }

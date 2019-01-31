@@ -3,9 +3,13 @@ package org.seckill.dao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.seckill.entity.UserEntity;
+import org.seckill.util.Verify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,6 +43,7 @@ public class UserDaoTest {
 
     @Test
     public void queryAllUser() {
-       // System.out.println(userDao.queryAllUser());
+        System.out.println(userDao.queryAllUser());
     }
+
 }

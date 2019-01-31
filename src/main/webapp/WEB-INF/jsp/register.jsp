@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>注册信息</title>
+    <%@include file="common/head.jsp" %>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <style>
@@ -25,7 +26,7 @@
 </div>
 <center>
 <div style="text-align: center; margin-top: 80px;">
-    <form id="addMessage">
+    <form id="addMessage" method="post">
         <table>
             <tr>
                 <td>学号：</td>
@@ -68,7 +69,7 @@
             <tr>
                 <td></td>
                 <td colspan="2">
-                    <input type="submit" id="submit" onclick="register()" /></td>
+                    <button class="btn btn-success" type="button" onclick="register()">注册</button></td>
             </tr>
         </table>
     </form>
@@ -77,12 +78,10 @@
 
 <script type="text/javascript">
     function register() {
-        var all = $('#addMessage').serialize();
-        console.log(all);
         $.ajax({
             url: "registerInfoSuccess.action",
             type: "POST",
-            data : all,
+            data : $('#addMessage').serialize(),
             dataType : "json",
             success : function (data) {
                 alert("====> " + data);
@@ -105,8 +104,8 @@
 
 </html>
 
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<%--<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->--%>
+<%--<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>--%>
 
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<%--<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->--%>
+<%--<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--%>

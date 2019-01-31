@@ -15,7 +15,7 @@
     <!-- 简化配置：
                     1.自动注册 DefaultAnnotationHandlerMapping , AnnotrationMethodHandlerAdapter
                     2.默认提供一系列功能：数据绑定，数字和日期的转换 format @NumberFormat , @DataTImeFormat ,xml ,json 默认读写支持-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven ignore-default-model-on-redirect="true"/>
 
     <!-- servlet-mapping 映射路径："/" -->
     <!-- 2、静态资源默认 servlet 配置

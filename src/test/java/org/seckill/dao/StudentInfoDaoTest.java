@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class StudentInfoDaoTest {
@@ -21,7 +20,7 @@ public class StudentInfoDaoTest {
 
     @Test
     public void insertStudentInfo() {
-        String id = studentInfoDao.queryById(5);
+        String id = studentInfoDao.queryById(17);
         StudentInfoEntity studentInfoEntity = new StudentInfoEntity();
         if (null != id && ! "".equals(id)) {
             StudentInfoEntity byId = studentInfoDao.findById(Integer.valueOf(id));
@@ -33,10 +32,10 @@ public class StudentInfoDaoTest {
                 e.printStackTrace();
             }
         } else {
-            studentInfoEntity.setStudentName("李四");
-            studentInfoEntity.setStudentAcdemic("数学学院");
-            studentInfoEntity.setStudentMajor("数学");
-            studentInfoEntity.setStudentNum("123456");
+            studentInfoEntity.setStudentName("李可");
+            studentInfoEntity.setStudentAcdemic("经济学院");
+            studentInfoEntity.setStudentMajor("经济");
+            studentInfoEntity.setStudentNum("14015099");
             studentInfoEntity.setStudentPhone("18678552661");
             studentInfoDao.insertStudentInfo(studentInfoEntity);
         }

@@ -1,0 +1,25 @@
+
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<h1 align = "center">接口测试</h1>
+<button onclick="test()">test</button>
+
+<script type="text/javascript">
+  function test() {
+      $.ajax({
+          url: "http://localhost:8080/testInterface",
+          type: "GET",
+          dataType: "json",
+          success: function (resp) {
+              alert("接口测试通过");
+              alert("数据： " + JSON.stringify(resp));
+          }
+      })
+  }
+</script>
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+</html>

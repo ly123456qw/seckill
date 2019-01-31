@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: LiuYan
@@ -18,7 +19,7 @@
 <body style="background:#328f46">
 <div class="headiv">
     <div class="logotag">
-        <a class="logo"><img src="../../resources/static/img/logo.png" width="440" height="65"></a>
+        <a class="logo"><img src="img/logo.png" width="440" height="65"></a>
         <b class="line"></b>
     </div>
     <a class="username">欢迎登录：<i>admin</i></a>
@@ -33,23 +34,15 @@
         <ul class="Fstage">
             <li><a href="#"><em class="e1"></em>常用操作<div class="clear"></div></a>
                 <ul class="Tstage" >
-                    <li><a href="index.html">欢迎页面</a></li>
-                    <li><a href="Manage_statistics.html">县域统计</a></li>
+                    <li><a onclick="joinClub()">加入社团</a></li>
+                    <li><a href="Manage_statistics.html">查看所属社团</a></li>
+                    <li><a href="Manage_statistics.html">查看公告</a></li>
                 </ul>
             </li>
-            <li><a href="#"><em class="e2"></em>账号管理<div class="clear"></div></a>
+            <li><a href="#"><em class="e2"></em>社团简介<div class="clear"></div></a>
                 <ul class="Tstage">
-                    <li><a href="Manage_account.html">账户信息</a></li>
-                    <li><a href="Manage_safe.html">账户安全</a></li>
-                </ul>
-            </li>
-            <li><a href="#"><em class="e3"></em>县域统计<div class="clear"></div></a>
-                <ul class="Tstage">
-                    <li><a href="Manage_tiyan.html">县域交易额信息</a></li>
-                    <li><a href="Manage_tiyan.html">体验店信息</a></li>
-                    <li><a href="Manage_pinkun.html">贫困户信息</a></li>
-                    <li><a href="Manage_diansh.html">电商培训</a></li>
-                    <li><a href="Manage_wuliu.html">物流车辆</a></li>
+                    <li><a href="Manage_account.html">社团展示</a></li>
+                    <li><a href="Manage_safe.html">申请社团</a></li>
                 </ul>
             </li>
 
@@ -63,9 +56,16 @@
     <div class="clearh" style="height:0"></div>
 </div>
 
+
+<script type="text/javascript">
+    function joinClub() {
+        self.location = "./joinClub.action";
+    }
+
+</script>
 </body>
 </html>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>2ws

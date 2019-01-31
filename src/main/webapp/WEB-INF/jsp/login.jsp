@@ -34,6 +34,7 @@
                         <td height="80">
                             <a style="margin-top: 10px"  class="logbtn" onclick="login()">登录</a>
                             <a style="margin-top: 20px"  class="logbtn" onclick="register()">注册</a>
+                            <a style="margin-top: 20px"  class="logbtn" onclick="test()">注册</a>
                         </td>
                     </tr>
                 </table>
@@ -42,6 +43,19 @@
     </div>
 </div>
 <script type="text/javascript">
+
+    function test() {
+        $.ajax({
+            url: "http://localhost:8080/testInterface",
+            type: "GET",
+            dataType: "json",
+            success: function (resp) {
+                alert("接口测试通过");
+                alert("数据： " + JSON.stringify(resp));
+            }
+        })
+    }
+
     function login() {
         var all = $('#addMessage').serialize();
         $.ajax({
@@ -52,7 +66,7 @@
             success: function (data) {
                 if (data === 1) {
                     alert("登录成功");
-                    self.location = "./studentSuccessInfo";
+                    self.location = "./index";
                 } else if (data === 0) {
                     alert("学号或者密码输入错误");
                     self.location = "./login";

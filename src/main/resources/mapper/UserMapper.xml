@@ -13,10 +13,8 @@
         <result column="user_Status" property="userStatus" jdbcType="INTEGER"/>
         <result column="user_Introduce" property="userIntro" jdbcType="VARCHAR"/>
     </resultMap>
-
-
     <sql id="Base">
-        user_id,user_Num,user_Password,user_Email,user_Status,user_Introduce
+        user_id,user_Num,fk_student_Id,user_Password,user_Email,user_Status,user_Introduce
     </sql>
     <select id="queryAllUser" resultMap="BaseResultMap">
         SELECT
@@ -33,11 +31,12 @@
     </select>
     <!--parameterType为输入参数-->
     <insert id="insertUser" parameterType="org.seckill.entity.UserEntity">
-       INSERT INTO user (user_Num,user_Password,user_Email,user_Introduce)
+       INSERT INTO user (user_Num,fk_student_Id,user_Password,user_Email,user_Introduce)
        VALUE (
          <if test="userNumber != null" >
         #{userNumber, jdbcType = VARCHAR},
          </if>
+        #{studentId,jdbcType = INTEGER},
         <if test="userPassword != null">
         #{userPassword, jdbcType = VARCHAR},
         </if>

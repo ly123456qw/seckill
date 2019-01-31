@@ -1,9 +1,12 @@
 package org.seckill.controller;
 
+import org.seckill.dao.UserDao;
 import org.seckill.entity.StudentInfoEntity;
 import org.seckill.entity.UserEntity;
 import org.seckill.service.StudentInfoService;
 import org.seckill.service.UserService;
+import org.seckill.util.CommonRequest;
+import org.seckill.util.CommonRequestJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.List;
 
 
 @Controller
@@ -60,8 +66,6 @@ public class UserController {
         String email = request.getParameter("email");
         String academic = request.getParameter("academic");
         String major = request.getParameter("major");
-
-
        // 判断输入的学号和密码不为空
         if (number != null && !"".equals(number) &&
                 password != null && !"".equals(password) &&
@@ -71,9 +75,12 @@ public class UserController {
 
             // 判断两个密码是否相等和学号是否在学生表中存在
             if (number.equals(studentInfoEntity.getStudentNum())&& password.equals(pwd)) {
+
+                userEntity.setStudentId(Integer.valueOf(studentInfoEntity.getStudentId().toString()));
                 userEntity.setUserNumber(number);
                 userEntity.setUserPassword(password);
-                userEntity.setUserIntro(email);
+                userEntity.setUserEmail(email);
+
                 try {
                     userService.insertUser(userEntity);
                     return "1";
@@ -139,11 +146,25 @@ public class UserController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/studentSuccessInfo")
+    @RequestMapping(value = "/index")
     public String studentSuccessInfo(HttpServletRequest request, Model model) {
         String usersession = (String) request.getSession().getAttribute("name");
         model.addAttribute("name", usersession);
-        return "director";
+        return "index";  //一个页面
+    }
+
+    @RequestMapping(value = "/joinClub")
+    public String StudentJoinClub(HttpServletRequest request) {
+
+        return "joinClubs";
+    }
+
+    @RequestMapping(value = "/testInterface")
+    public void testInterface(HttpServletResponse response) throws IOException {
+        List<UserEntity> userEntities = userService.queryAll();
+
+        CommonRequest commonRequest = new CommonRequest(userEntities);
+        CommonRequestJSON.toJSON(commonRequest, response);
     }
 
 }

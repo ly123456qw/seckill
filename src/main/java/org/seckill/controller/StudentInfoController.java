@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/")  //根路径
@@ -43,6 +43,7 @@ public class StudentInfoController {
     @ResponseBody
     public String save(HttpServletRequest request) {
         StudentInfoEntity studentInfoEntity = new StudentInfoEntity();
+
         String number = request.getParameter("number");
         String password = request.getParameter("password");
         String pwd = request.getParameter("pwd");
@@ -50,6 +51,11 @@ public class StudentInfoController {
         String email= request.getParameter("email");
         String academic= request.getParameter("academic");
         String major= request.getParameter("major");
+
+        //验证输入学号的位数
+        Pattern pattern = Pattern.compile("\\d{6}");
+        boolean matches = pattern.matcher("a21109").matches();
+
         //取性别
         studentInfoEntity.setStudentNum(number);
         studentInfoEntity.setStudentName(username);

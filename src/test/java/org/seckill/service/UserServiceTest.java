@@ -37,4 +37,10 @@ public class UserServiceTest {
         userDao.insertUser(userEntity);*/
 
     }
+
+    @Test
+    public void queryAll(){
+        System.out.println(userDao.queryAllUser());
+    }
+
 }
