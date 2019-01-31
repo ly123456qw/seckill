@@ -34,7 +34,7 @@
                         <td height="80">
                             <a style="margin-top: 10px"  class="logbtn" onclick="login()">登录</a>
                             <a style="margin-top: 20px"  class="logbtn" onclick="register()">注册</a>
-                            <a style="margin-top: 20px"  class="logbtn" onclick="test()">注册</a>
+                            <%--<a style="margin-top: 20px"  class="logbtn" onclick="test()">接口测试</a>--%>
                         </td>
                     </tr>
                 </table>
